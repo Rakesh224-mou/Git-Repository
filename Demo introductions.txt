@@ -1,0 +1,51 @@
+                                             Docker is a containized engine(Hub.Docker username : rakeshreddy261)
+PWD :  9959591574@r
+
+
+We have  two type of Application Software 
+
+1) Application Software 
+2) System software 
+
+
+Basically the application softeware We use for example like  (zoom sky )etc
+
+This application s/w is underline OS like( windows and linux)etc
+
+Those underline OS we called as system software
+
+Those system software is talk to Hardware (H/W) is having (CPU memory Disk)
+
+Note : The Application s/w directly doesn't  talk to hardware directly is taking help of System software
+
+
+By using this legacy we are facing the problem
+
+For example : SQL S/w application  is underling windows (W) operating system in server 1
+
+And oracle S/w application is underling linux (L)operating system in server 2
+
+So this prolem solving we have using hyperview 
+
+>Hyperview having only one server in that server top up we having  hyperview And w having underline servers there we can  moving the data
+
+here also we having facing the issue here for example oracle and mssql is EE edition s/w when we there run we have windows and linux OS so we maintance both software licenses
+So those problem rectified we are using virtualization by using this virtualization we rectified this problem 
+
+We having virtualization in that to up  guest OS and Docker host in that using the Applications  SQL and  orcal so we that  can easily migration to anothere application 
+
+
+>Git bash is  interface is connect to Linux server that  located in a cloud service
+
+
+
+                         
+
+
+
+
+
+
+
+
+

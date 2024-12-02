@@ -1,0 +1,335 @@
+
+                             ***Kubernets sample commands by executing pods and some others***
+>kubectl get nodes
+>kubectl get pods
+>kubectl apply -f ymi file name
+>kubectl get ns
+>kubectl get rs or rc
+>kubectl delete pod pod-name
+>kubectl get all
+>kubectl describe pod pod-name
+>kubectl get svc
+>vim pod-defination1.yml
+
+
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&(What is LoadBalancer)&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&7
+
+In Kubernetes, a load balancer is a component that distributes network traffic across multiple instances of an application running in a K8S cluster1. Load balancing is essentially network traffic management and resource allocation2. A load balancer assigns pods, containers, and other cluster resources when it identifies an incoming request based on their availability
+
+
+                                 ***sample pod creating defination files various aspect**** 
+                                        *What is apiVersion
+
+>API full form(application programming interface)
+
+API stands for Application Programming Interface. It is a set of rules and protocols that allows different software applications to communicate with each other. APIs enable the integration of various services and functionalities, allowing developers to use existing components rather than building them from scratch
+...............................................................................
+                                     *What is kind
+
+>kind is a open source tool for running kubernets cluster running locally
+
+>kind is used for enabling users to test kubernets commands in a single cluster nodes
+
+..................................................................................
+                           *what is container
+
+container is lightweight and executable images it's conatin software and its dependence
+Note:           *****Running application is called as container*****
+.......................................................................................
+                             *what is image
+
+>Image it's contain set of lib and bin files its is used for running application is called as image
+
+Note :             ****** Image is like a setup file software******
+............................................................................................
+                               *What is port
+
+>simplfies data transfer one computer to another computer
+.....................................................................
+                                 *What is labels
+
+>Labels is a key and values its is used for pair one pod to another pod integration perpose we are using labels
+
+                           
+...............................................................................................
+                            &&&&&&&&&POD&&&&&&&&&
+
+                            *What is pod
+
+> Pod is a simple deployment application unite it's create and manage in a kubernets
+>pod containes one or more containers
+
+>kubectl get pods
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: web
+spec:
+  containers:
+    - name: mynginx
+      image: nginx
+...
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postgres-pod
+  labels:
+   app: db
+spec:
+  conatainers:
+    - name: mydb
+      image: postgres
+      evn:
+        - name: POSTGRES_PASSWORD
+          value: Rakesh
+        - name: POSTGRES_USER
+          value: myuser
+        - name: POSTGRES_DB
+          value: mydb4332
+...
+vim pod-defination3.ymi
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wordpress-pod
+  labels:
+  type: web
+Spec:
+  containers:
+    - name: mywordpress
+      image: wordpress
+      ports: 
+        - containerPort: 80
+          hostPort: 8080
+...
+vim pod-defination4.yml
+
+---
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: myhttpd-pod
+  labels:
+    taype: webapplication
+spec:
+  containers:
+    - name: myhttpd
+      image: httpd
+      ports:
+        - containerPort: 80
+          hostPort: 8080
+...
+..............................................................................................................
+
+                                              &&&Namespace&&&
+
+In Kubernetes, namespaces provide a mechanism for isolating groups of resources within a single cluster 
+
+>kubectl get -n namespace(kubectl get ns)
+
+vim namespace.ymi
+
+---
+apiVersion: v1
+kind: Namespacemetadata:
+  name: test-ns
+...
+
+By using namespace we create a pod
+
+>kubectl get pods pod-tomee -n test-ns
+
+vim pod-defination5.yml
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-tomee
+  namespace: test-ns( if you are not given a test-ns its running on a default space)
+  labels
+    type: web
+spec:
+  containers:
+    - name: mytomee
+      image: tomee
+      ports:
+        - containerPorts: 8080
+          hostPort: 9090
+... 
+..........................................................................................................
+                                   $$$REPLICATION CONTROLLER$$$$
+
+*What is Replication controller(dipricated)
+
+Replication controller is a high level object its maintained multiple replicas-pods and the pods distribute different slave is called as replication controllers
+
+*What is the uses of replication controlle
+
+********************By  using  replication controllers we performed loadaBalnces and scalling*********** 
+
+Commands
+
+>Kubectl get rc                           
+
+>vim rc-defination1.yml
+
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: nginx-rc
+  namespace: test-ns
+  labels:
+    app: web
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: nginx-pod
+      labels:
+        type: web
+    spec:
+       containers:
+         - name: mynginx
+           image: nginx
+           ports:
+             - containerPorts: 80
+               hostPort: 8080
+....
+vim rc-defination1.yml
+
+--- 
+apiVersion: v1
+kind: ReplicationController
+metadata:   
+  name: httpd-rc
+  namespace: test-ns
+  labels: 
+    name:app
+spec:
+  replicas:4
+  template:
+    name: httpd-pod
+    labels:
+      name: app
+  spec:
+    containers:
+      - name: myhttpd
+        image: httpd
+        ports:
+          - containerPorts: 80
+            hostPorts : 8080
+..... 
+                  @@@@@@@@@@@@@@ReplicationSet@@@@@@@@@@@
+
+*What is ReplicationSet(using)
+
+RS is a high level abject maintence the multiple replicas-pods and it's distributed the diffrent slaves is called as ReplicationSet 
+By using RS we can do loadBalance and scalling  we have a advantage using RS without distrusting yml file we increse the replicas pods and decrease the replicas pods(scalling)  by using replace command and scale -- replace=
+
+******************What is scalling*******
+>Increasing pods and decrease the pods is called as scalling
+
+>kubectl get rs
+>kubectl replace rs-name.yml
+>kubectl scale --replace=3 rs-name.yml
+
+Note : All are manual changes
+
+vim rs-defination1.yml
+
+---
+apiVersion: apps/v1
+kind ReplicaSet
+metadata:
+  name: mvn-rs
+  labels: 
+    name: web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      type: web
+  template: 
+    metadata:
+    name: mvn-pod
+    labels:
+      type: web
+  spec:
+     conatiners:
+       - name: mymvn
+         image: mven
+         ports:  
+           - containerPorts: 8080
+              hostPorts: 9090
+...
+.............
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

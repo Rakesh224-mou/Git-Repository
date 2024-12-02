@@ -1,0 +1,65 @@
+**********************Git***********
+
+*Version control system(VSC)
+We have two type they are in below
+
+1> Centrolized repository 
+2> Distribute repository
+
+*git comes under Distribute repository
+
+By using git we can push the code into Local repositry 
+
+VCS having a capability 
+
+1> **code repository
+2>**persistence older and new data we can jump into older vesion data and new version data
+3)**VCS also having special capability that is continues traking who make change the code and what time
+
+In git git --global user-name " Rakesh"
+        git --global user-mail "rakesh.singireddy1996@gmail.com"
+
+* First we create a new folder and push some file code into the folder then
+that folder initialized into git repository by using git command
+
+>git init
+Then we can use git commands
+
+>git status
+
+show all files in untracked file and stagging files
+
+when we push the code into LR we have 3 state 
+
+1) untracked file
+2) stagging file
+3) local repository
+
+*We called working directory called as untracked files
+*buffere stagging called as index file
+* Local repository is called as commited files
+
+>git add file name
+
+that file goes to stagging area that fille goes to commited state
+
+>git commit -m "message"
+
+that file goes to local repository
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
